@@ -6,11 +6,13 @@ use ApiPlatform\Doctrine\Orm\State\ItemProvider;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Entity\DragonTreasure;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class DragonTreasureStateProvider implements ProviderInterface {
 	public function __construct(
-		#[Autowire(service: ItemProvider::class)] private ProviderInterface $itemProvider
+		#[Autowire(service: ItemProvider::class)] private ProviderInterface $itemProvider,
+		private Security $security
 	){
 
 	}
@@ -21,7 +23,9 @@ class DragonTreasureStateProvider implements ProviderInterface {
 			return null;
 		}
 
-		$treasure->setIsOwnedByAuthenticatedUser(true);
+		$treasure->setIsOwnedByAuthenticatedUser(
+			$this->security->getUser() === $treasure->getOwner()
+		);
 
 		return $treasure;
 	}
