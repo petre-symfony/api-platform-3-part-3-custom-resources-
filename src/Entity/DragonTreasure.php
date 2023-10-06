@@ -127,7 +127,7 @@ class DragonTreasure {
 
 	#[ORM\Column]
 	#[ApiFilter(BooleanFilter::class)]
-	#[Groups(['admin:read', 'admin:write', 'owner:read'])]
+	#[Groups(['admin:read', 'admin:write', 'owner:read', 'treasure:write'])]
 	private bool $isPublished = false;
 
 	#[ORM\ManyToOne(inversedBy: 'dragonTreasures')]
