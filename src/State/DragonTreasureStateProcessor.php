@@ -19,17 +19,16 @@ class DragonTreasureStateProcessor implements ProcessorInterface {
 
 	public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): void {
 		assert($data instanceof DragonTreasure);
-		
-		if ($data instanceof DragonTreasure && $data->getOwner() === null && $this->security->getUser()) {
+
+		if ($data->getOwner() === null && $this->security->getUser()) {
 			$data->setOwner($this->security->getUser());
 		}
 
 		$this->innerProcessor->process($data, $operation, $uriVariables, $context);
+		
+		$data->setIsOwnedByAuthenticatedUser(
+			$this->security->getUser() === $data->getOwner()
+		);
 
-		if ($data instanceof DragonTreasure) {
-			$data->setIsOwnedByAuthenticatedUser(
-				$this->security->getUser() === $data->getOwner()
-			);
-		}
 	}
 }
