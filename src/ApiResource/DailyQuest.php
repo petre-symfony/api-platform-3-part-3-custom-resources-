@@ -20,6 +20,7 @@ class DailyQuest {
 	}
 
 	#[ApiProperty(
+		readable: false,
 		identifier: true
 	)]
 	public function getDayString():string {
