@@ -11,12 +11,17 @@ use App\State\DailyQuestStateProvider;
 	provider: DailyQuestStateProvider::class
 )]
 class DailyQuest {
-	#[ApiProperty(
-		identifier: true
-	)]
+
 	public \DateTimeInterface $day;
 
 	public function __construct(\DateTimeInterface $day){
 		$this->day = $day;
+	}
+
+	#[ApiProperty(
+		identifier: true
+	)]
+	public function getDayString():string {
+		return $this->day->format('Y-m-d');
 	}
 }
