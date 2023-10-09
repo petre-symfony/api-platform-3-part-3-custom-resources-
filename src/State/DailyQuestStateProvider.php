@@ -9,8 +9,8 @@ use App\ApiResource\DailyQuest;
 class DailyQuestStateProvider implements ProviderInterface {
 	public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null {
 		return [
-			new DailyQuest(4),
-			new DailyQuest(5)
+			new DailyQuest(new \DateTime('now')),
+			new DailyQuest(new \DateTime('yesterday'))
 		];
 	}
 }
