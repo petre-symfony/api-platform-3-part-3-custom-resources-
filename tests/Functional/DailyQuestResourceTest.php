@@ -10,9 +10,9 @@ class DailyQuestResourceTest extends ApiTestCase {
 	use Factories;
 
 	public function testPatchCanUpdateStatus() {
-		$yesterday = new \DateTime('-1 day');
+		$day = new \DateTime('-2 day');
 		$this->browser()
-			->patch('/api/quests/' . $yesterday->format('Y-m-d'), [
+			->patch('/api/quests/' . $day->format('Y-m-d'), [
 				'json' => [
 					'status' => 'completed'
 				],
