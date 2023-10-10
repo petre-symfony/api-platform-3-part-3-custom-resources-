@@ -17,11 +17,10 @@ use Symfony\Component\Serializer\Annotation\Ignore;
 	operations: [
 		new GetCollection(),
 		new Get(),
-		new Patch(
-			processor: DailyQuestStateProcessor::class
-		)
+		new Patch()
 	],
-	provider: DailyQuestStateProvider::class
+	provider: DailyQuestStateProvider::class,
+	processor: DailyQuestStateProcessor::class
 )]
 class DailyQuest {
 	#[Ignore]
@@ -31,6 +30,7 @@ class DailyQuest {
 	public string $description;
 	public int $difficultyLevel;
 	public DailyQuestStatusEnum $status;
+	public \DateTimeInterface $lastUpdated;
 
 	public function __construct(\DateTimeInterface $day){
 		$this->day = $day;
