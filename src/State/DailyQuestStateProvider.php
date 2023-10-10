@@ -2,6 +2,7 @@
 
 namespace App\State;
 
+use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\ApiResource\DailyQuest;
@@ -9,8 +10,11 @@ use App\Enum\DailyQuestStatusEnum;
 
 class DailyQuestStateProvider implements ProviderInterface {
 	public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null {
-		dd($operation);
-		return $this->createQuests();
+		if ($operation instanceof CollectionOperationInterface) {
+			return $this->createQuests();
+		}
+
+		dd($uriVariables);
 	}
 
 	private function createQuests(): array
