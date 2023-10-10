@@ -14,7 +14,9 @@ class DailyQuestStateProvider implements ProviderInterface {
 			return $this->createQuests();
 		}
 
-		dd($uriVariables);
+		$quests = $this->createQuests();
+
+		return $quests[$uriVariables['dayString']] ?? null;
 	}
 
 	private function createQuests(): array
