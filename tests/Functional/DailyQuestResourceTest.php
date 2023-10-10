@@ -21,7 +21,6 @@ class DailyQuestResourceTest extends ApiTestCase {
 				]
 			])
 			->assertStatus(200)
-			->dump()
 			->assertJsonMatches('status', 'completed')
 		;
 	}
