@@ -31,6 +31,7 @@ class DailyQuest {
 	public int $difficultyLevel;
 	public DailyQuestStatusEnum $status;
 	public \DateTimeInterface $lastUpdated;
+	public array $treasures;
 
 	public function __construct(\DateTimeInterface $day){
 		$this->day = $day;
