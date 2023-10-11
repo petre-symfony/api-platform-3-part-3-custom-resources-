@@ -31,11 +31,9 @@ class DailyQuest {
 	public int $difficultyLevel;
 	public DailyQuestStatusEnum $status;
 	public \DateTimeInterface $lastUpdated;
-	/**
-	 * @var QuestTreasure[]
-	 */
+
 	#[ApiProperty(genId: false)]
-	public array $treasures;
+	public QuestTreasure $treasure;
 
 	public function __construct(\DateTimeInterface $day){
 		$this->day = $day;
