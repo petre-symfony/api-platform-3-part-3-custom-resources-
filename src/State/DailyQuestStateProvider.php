@@ -19,13 +19,17 @@ class DailyQuestStateProvider implements ProviderInterface {
 
 	public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null {
 		if ($operation instanceof CollectionOperationInterface) {
+			$currentPage =1;
+			$itemsPerPage = 10;
+			$totalItems = $this->countTotalQuests();
+
 			$quests =  $this->createQuests();
 
 			return new TraversablePaginator(
 				new \ArrayIterator($quests),
-				1,
-				10,
-				count($quests)
+				$currentPage,
+				$itemsPerPage,
+				$totalItems
 			);
 		}
 
@@ -37,7 +41,7 @@ class DailyQuestStateProvider implements ProviderInterface {
 	private function createQuests(): array {
 		$treasures = $this->treasureRepository->findBy([], [], 10);
 		$quests = [];
-		for ($i = 0; $i < 50; $i++) {
+		for ($i = 0; $i < $this->countTotalQuests(); $i++) {
 			$quest = new DailyQuest(new \DateTimeImmutable(sprintf('- %d days', $i)));
 			$quest->questName = sprintf('Quest %d', $i);
 			$quest->description = sprintf('Description %d', $i);
@@ -56,5 +60,9 @@ class DailyQuestStateProvider implements ProviderInterface {
 			$quests[$quest->getDayString()] = $quest;
 		}
 		return $quests;
+	}
+
+	private function countTotalQuests(): int{
+		return 50;
 	}
 }
