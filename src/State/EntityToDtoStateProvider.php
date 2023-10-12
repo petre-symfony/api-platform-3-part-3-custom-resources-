@@ -16,6 +16,6 @@ class EntityToDtoStateProvider implements ProviderInterface {
 
 	public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null {
 		$entities = $this->collectionProvider->provide($operation, $uriVariables, $context);
-		dd(iterator_to_array($entities));
+		return $entities;
 	}
 }
