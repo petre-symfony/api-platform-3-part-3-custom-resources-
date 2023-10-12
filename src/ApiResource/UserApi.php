@@ -9,10 +9,12 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\DragonTreasure;
 use App\Entity\User;
+use App\State\EntityToDtoStateProvider;
 
 #[ApiResource(
 	shortName: 'User',
 	paginationItemsPerPage: 5,
+	provider: EntityToDtoStateProvider::class,
 	stateOptions: new Options(entityClass: User::class)
 )]
 #[ApiFilter(SearchFilter::class, properties: [
