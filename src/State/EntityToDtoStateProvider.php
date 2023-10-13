@@ -4,6 +4,7 @@ namespace App\State;
 
 use ApiPlatform\Doctrine\Orm\Paginator;
 use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
+use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\TraversablePaginator;
 use ApiPlatform\State\ProviderInterface;
@@ -18,20 +19,24 @@ class EntityToDtoStateProvider implements ProviderInterface {
 	}
 
 	public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null {
-		$entities = $this->collectionProvider->provide($operation, $uriVariables, $context);
-		assert($entities instanceof Paginator);
+		if ($operation instanceof CollectionOperationInterface) {
+			$entities = $this->collectionProvider->provide($operation, $uriVariables, $context);
+			assert($entities instanceof Paginator);
 
-		$dtos = [];
-		foreach ($entities as $entity) {
-			$dtos[] = $this->mapEntityToDto($entity);
+			$dtos = [];
+			foreach ($entities as $entity) {
+				$dtos[] = $this->mapEntityToDto($entity);
+			}
+
+			return new TraversablePaginator(
+				new \ArrayIterator($dtos),
+				$entities->getCurrentPage(),
+				$entities->getItemsPerPage(),
+				$entities->getTotalItems()
+			);
 		}
 
-		return new TraversablePaginator(
-			new \ArrayIterator($dtos),
-			$entities->getCurrentPage(),
-			$entities->getItemsPerPage(),
-			$entities->getTotalItems()
-		);
+		dd($uriVariables);
 	}
 
 	private function mapEntityToDto(object $entity): object {
