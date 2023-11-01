@@ -21,7 +21,7 @@ use App\State\EntityToDtoStateProvider;
 	'username' => 'partial'
 ])]
 class UserApi {
-	public ?int $id = null;
+	public ?int $id = 5;
 
 	public ?string $email = null;
 
