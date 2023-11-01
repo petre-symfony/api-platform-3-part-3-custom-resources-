@@ -9,19 +9,21 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\DragonTreasure;
 use App\Entity\User;
+use App\State\EntityDtoClassStateProcessor;
 use App\State\EntityToDtoStateProvider;
 
 #[ApiResource(
 	shortName: 'User',
 	paginationItemsPerPage: 5,
 	provider: EntityToDtoStateProvider::class,
+	processor: EntityDtoClassStateProcessor::class,
 	stateOptions: new Options(entityClass: User::class)
 )]
 #[ApiFilter(SearchFilter::class, properties: [
 	'username' => 'partial'
 ])]
 class UserApi {
-	public ?int $id = 5;
+	public ?int $id = null;
 
 	public ?string $email = null;
 
