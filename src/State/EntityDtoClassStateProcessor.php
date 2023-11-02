@@ -2,24 +2,29 @@
 
 namespace App\State;
 
+use ApiPlatform\Doctrine\Common\State\PersistProcessor;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\ApiResource\UserApi;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class EntityDtoClassStateProcessor implements ProcessorInterface {
 	public function __construct(
-		private UserRepository $userRepository
+		private UserRepository $userRepository,
+		#[Autowire(service: PersistProcessor::class)] private ProcessorInterface $persistProcessor
 	) {
 
 	}
-	public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): void {
+	public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []) {
 		assert($data instanceof UserApi);
 
 		$entity = $this->mapDtoToEntityData($data);
 
-		dd($entity);
+		$this->persistProcessor->process($entity, $operation, $uriVariables, $context);
+
+		return $data;
 	}
 
 	private function mapDtoToEntityData(object $dto): object {
