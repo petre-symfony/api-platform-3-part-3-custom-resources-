@@ -8,13 +8,29 @@ use ApiPlatform\Doctrine\Orm\State\Options;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Entity\DragonTreasure;
 use App\Entity\User;
 use App\State\EntityDtoClassStateProcessor;
 use App\State\EntityToDtoStateProvider;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ApiResource(
 	shortName: 'User',
+	operations: [
+		new Get(),
+		new GetCollection(),
+		new Post(
+			validationContext: ['groups' => ['Default', 'postValidation']]
+		),
+		new Patch(),
+		new Delete()
+	],
 	paginationItemsPerPage: 5,
 	provider: EntityToDtoStateProvider::class,
 	processor: EntityDtoClassStateProcessor::class
@@ -28,14 +44,18 @@ class UserApi {
 	#[ApiProperty(readable: false, writable: false, identifier: true)]
 	public ?int $id = null;
 
+	#[NotBlank]
+	#[Email]
 	public ?string $email = null;
 
+	#[NotBlank]
 	public ?string $username = null;
 
 	/**
 	 * The plaintext password when being set or changed
 	 */
 	#[ApiProperty(readable: false)]
+	#[NotBlank(groups: ['postValidation'])]
 	public ?string $password = null;
 
 	/**
