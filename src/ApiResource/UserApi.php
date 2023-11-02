@@ -25,7 +25,7 @@ use App\State\EntityToDtoStateProvider;
 	'username' => 'partial'
 ])]
 class UserApi {
-	#[ApiProperty(readable: false, identifier: true)]
+	#[ApiProperty(readable: false, writable: false, identifier: true)]
 	public ?int $id = null;
 
 	public ?string $email = null;
@@ -41,7 +41,9 @@ class UserApi {
 	/**
 	 * @var array<int, DragonTreasure>
 	 */
+	#[ApiProperty(writable: false)]
 	public array $dragonTreasures = [];
 
+	#[ApiProperty(writable: false, security: 'is_granted()')]
 	public int $flameThrowingDistance = 0;
 }
