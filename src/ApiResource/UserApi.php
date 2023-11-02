@@ -26,11 +26,15 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 		new Get(),
 		new GetCollection(),
 		new Post(
+			security: 'is_granted("PUBLIC_ACCESS")',
 			validationContext: ['groups' => ['Default', 'postValidation']]
 		),
-		new Patch(),
+		new Patch(
+			security: 'is_granted("ROLE_USER_EDIT")'
+		),
 		new Delete()
 	],
+	security: 'is_granted("ROLE_USER")',
 	paginationItemsPerPage: 5,
 	provider: EntityToDtoStateProvider::class,
 	processor: EntityDtoClassStateProcessor::class
