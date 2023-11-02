@@ -12,7 +12,6 @@ use App\Entity\DragonTreasure;
 use App\Entity\User;
 use App\State\EntityDtoClassStateProcessor;
 use App\State\EntityToDtoStateProvider;
-use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ApiResource(
 	shortName: 'User',
@@ -44,6 +43,5 @@ class UserApi {
 	 */
 	public array $dragonTreasures = [];
 
-	#[Ignore]
 	public int $flameThrowingDistance = 0;
 }
