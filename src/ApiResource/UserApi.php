@@ -16,7 +16,8 @@ use App\State\EntityToDtoStateProvider;
 	shortName: 'User',
 	paginationItemsPerPage: 5,
 	provider: EntityToDtoStateProvider::class,
-	processor: EntityDtoClassStateProcessor::class,
+	processor: EntityDtoClassStateProcessor::class
+	,
 	stateOptions: new Options(entityClass: User::class)
 )]
 #[ApiFilter(SearchFilter::class, properties: [
@@ -28,6 +29,11 @@ class UserApi {
 	public ?string $email = null;
 
 	public ?string $username = null;
+
+	/**
+	 * The plaintext password when being set or changed
+	 */
+	public ?string $password = null;
 
 	/**
 	 * @var array<int, DragonTreasure>
