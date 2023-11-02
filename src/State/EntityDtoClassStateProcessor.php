@@ -23,6 +23,7 @@ class EntityDtoClassStateProcessor implements ProcessorInterface {
 		$entity = $this->mapDtoToEntityData($data);
 
 		$this->persistProcessor->process($entity, $operation, $uriVariables, $context);
+		$data->id = $entity->getId();
 
 		return $data;
 	}
