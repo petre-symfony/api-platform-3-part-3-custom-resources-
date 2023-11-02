@@ -12,9 +12,12 @@ use App\Entity\DragonTreasure;
 use App\Entity\User;
 use App\State\EntityDtoClassStateProcessor;
 use App\State\EntityToDtoStateProvider;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 #[ApiResource(
 	shortName: 'User',
+	normalizationContext: [AbstractNormalizer::IGNORED_ATTRIBUTES => ['flameThrowingDistance']],
+	denormalizationContext: [AbstractNormalizer::IGNORED_ATTRIBUTES => ['flameThrowingDistance']],
 	paginationItemsPerPage: 5,
 	provider: EntityToDtoStateProvider::class,
 	processor: EntityDtoClassStateProcessor::class
@@ -43,6 +46,5 @@ class UserApi {
 	 */
 	public array $dragonTreasures = [];
 
-	#[ApiProperty(readable: false, writable: false)]
 	public int $flameThrowingDistance = 0;
 }
