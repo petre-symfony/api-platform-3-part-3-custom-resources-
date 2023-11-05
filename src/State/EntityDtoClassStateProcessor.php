@@ -9,17 +9,13 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\ApiResource\UserApi;
 use App\Entity\User;
-use App\Repository\UserRepository;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfonycasts\MicroMapper\MicroMapperInterface;
 
 class EntityDtoClassStateProcessor implements ProcessorInterface {
 	public function __construct(
-		private UserRepository $userRepository,
 		#[Autowire(service: PersistProcessor::class)] private ProcessorInterface $persistProcessor,
 		#[Autowire(service: RemoveProcessor::class)] private ProcessorInterface $removeProcessor,
-		private UserPasswordHasherInterface $userPasswordHasher,
 		private MicroMapperInterface $microMapper
 	) {
 
