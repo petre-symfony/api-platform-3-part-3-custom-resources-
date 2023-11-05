@@ -3,7 +3,6 @@
 namespace App\ApiResource;
 
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
 use ApiPlatform\Doctrine\Orm\State\Options;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
@@ -13,7 +12,6 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\Entity\DragonTreasure;
 use App\Entity\User;
 use App\State\EntityDtoClassStateProcessor;
 use App\State\EntityToDtoStateProvider;
@@ -63,7 +61,7 @@ class UserApi {
 	public ?string $password = null;
 
 	/**
-	 * @var array<int, DragonTreasure>
+	 * @var array<int, DragonTreasureApi>
 	 */
 	#[ApiProperty(writable: false)]
 	public array $dragonTreasures = [];
