@@ -21,6 +21,7 @@ class EntityDtoClassStateProcessor implements ProcessorInterface {
 
 	}
 	public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []) {
+		dd($operation);
 		assert($data instanceof UserApi);
 
 		$entity = $this->mapDtoToEntityData($data);
