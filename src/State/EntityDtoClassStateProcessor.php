@@ -4,6 +4,7 @@ namespace App\State;
 
 use ApiPlatform\Doctrine\Common\State\PersistProcessor;
 use ApiPlatform\Doctrine\Common\State\RemoveProcessor;
+use ApiPlatform\Doctrine\Orm\State\Options;
 use ApiPlatform\Metadata\DeleteOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
@@ -21,10 +22,11 @@ class EntityDtoClassStateProcessor implements ProcessorInterface {
 
 	}
 	public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []) {
-		dd($operation);
-		assert($data instanceof UserApi);
+		$stateOptions = $operation->getStateOptions();
+		assert($stateOptions instanceof Options);
+		$entityClass = $stateOptions->getEntityClass();
 
-		$entity = $this->mapDtoToEntityData($data);
+		$entity = $this->mapDtoToEntityData($data, $entityClass);
 
 		if ($operation instanceof DeleteOperationInterface) {
 			$this->removeProcessor->process($entity, $operation, $uriVariables, $context);
@@ -38,7 +40,7 @@ class EntityDtoClassStateProcessor implements ProcessorInterface {
 		return $data;
 	}
 
-	private function mapDtoToEntityData(object $dto): object {
-		return $this->microMapper->map($dto, User::class);
+	private function mapDtoToEntityData(object $dto, string $entityClass): object {
+		return $this->microMapper->map($dto, $entityClass);
 	}
 }
