@@ -11,7 +11,6 @@ use App\State\EntityToDtoStateProvider;
 
 #[ApiResource(
 	shortName: 'Treasure',
-	security: 'is_granted("ROLE_USER")',
 	paginationItemsPerPage: 10,
 	provider: EntityToDtoStateProvider::class,
 	processor: EntityDtoClassStateProcessor::class,
