@@ -15,6 +15,7 @@ class DragonTreasureVoter extends Voter {
 	}
 
 	protected function supports(string $attribute, mixed $subject): bool {
+		dd($attribute, $subject);
 		return in_array($attribute, [self::EDIT])
 			&& $subject instanceof DragonTreasure;
 	}
