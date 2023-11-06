@@ -11,7 +11,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\DragonTreasure;
-use App\State\EntityDtoClassStateProcessor;
+use App\State\DragonTreasureStateProcessor;
 use App\State\EntityToDtoStateProvider;
 use App\Validator\IsValidOwner;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
@@ -35,7 +35,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 	],
 	paginationItemsPerPage: 10,
 	provider: EntityToDtoStateProvider::class,
-	processor: EntityDtoClassStateProcessor::class,
+	processor: DragonTreasureStateProcessor::class,
 	stateOptions: new Options(entityClass: DragonTreasure::class)
 )]
 class DragonTreasureApi {
