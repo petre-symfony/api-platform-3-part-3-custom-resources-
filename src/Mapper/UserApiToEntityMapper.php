@@ -39,7 +39,8 @@ class UserApiToEntityMapper implements MapperInterface {
 		if ($dto->password) {
 			$entity->setPassword($this->userPasswordHasher->hashPassword($entity, $dto->password));
 		}
-		// TODO dragonTreasures if we change them to writeable
+		dd($dto);
+
 		return $entity;
 	}
 
