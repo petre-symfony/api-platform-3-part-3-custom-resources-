@@ -13,6 +13,7 @@ use ApiPlatform\Metadata\Post;
 use App\Entity\DragonTreasure;
 use App\State\EntityDtoClassStateProcessor;
 use App\State\EntityToDtoStateProvider;
+use App\Validator\IsValidOwner;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -54,6 +55,7 @@ class DragonTreasureApi {
 	#[LessThanOrEqual(10)]
 	public int $coolFactor = 0;
 
+	#[IsValidOwner]
 	public ?UserApi $owner = null;
 
 	public ?string $shortDescription = null;
