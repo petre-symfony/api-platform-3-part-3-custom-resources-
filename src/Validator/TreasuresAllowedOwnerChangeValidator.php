@@ -3,7 +3,6 @@
 namespace App\Validator;
 
 use App\Entity\DragonTreasure;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -20,7 +19,7 @@ class TreasuresAllowedOwnerChangeValidator extends ConstraintValidator {
 		}
 
 		// meant to be used above a Collection field
-		dd($value);
+		return;
 
 		$unitOfWork = $this->entityManager->getUnitOfWork();
 		foreach ($value as $dragonTreasure) {
