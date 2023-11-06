@@ -7,6 +7,7 @@ use App\Entity\DragonTreasure;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfonycasts\MicroMapper\AsMapper;
 use Symfonycasts\MicroMapper\MapperInterface;
 use Symfonycasts\MicroMapper\MicroMapperInterface;
@@ -16,7 +17,8 @@ class UserApiToEntityMapper implements MapperInterface {
 	public function __construct(
 		private UserRepository $userRepository,
 		private UserPasswordHasherInterface $userPasswordHasher,
-		private MicroMapperInterface $microMapper
+		private MicroMapperInterface $microMapper,
+		private PropertyAccessorInterface $propertyAccessor
 	){}
 
 	public function load(object $from, string $toClass, array $context): object {
@@ -49,7 +51,9 @@ class UserApiToEntityMapper implements MapperInterface {
 				MicroMapperInterface::MAX_DEPTH => 0
 			]);
 		}
-		dd($dragonTreasureEntities);
+
+		$this->propertyAccessor->setValue($entity, 'dragonTreasures', $dragonTreasureEntities);
+		dd($entity);
 
 		return $entity;
 	}
