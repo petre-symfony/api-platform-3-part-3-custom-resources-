@@ -63,7 +63,7 @@ class UserApi {
 	/**
 	 * @var array<int, DragonTreasureApi>
 	 */
-	#[ApiProperty(writable: false)]
+	#[ApiProperty(writable: true)]
 	public array $dragonTreasures = [];
 
 	#[ApiProperty(writable: false)]
