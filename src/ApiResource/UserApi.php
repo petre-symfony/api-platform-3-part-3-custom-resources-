@@ -43,6 +43,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 #[ApiFilter(SearchFilter::class, properties: [
 	'username' => 'partial'
 ])]
+#[TreasuresAllowedOwnerChange]
 class UserApi {
 	#[ApiProperty(readable: false, writable: false, identifier: true)]
 	public ?int $id = null;
@@ -64,7 +65,6 @@ class UserApi {
 	/**
 	 * @var array<int, DragonTreasureApi>
 	 */
-	#[TreasuresAllowedOwnerChange]
 	public array $dragonTreasures = [];
 
 	#[ApiProperty(writable: false)]

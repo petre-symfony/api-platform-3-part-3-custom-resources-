@@ -19,7 +19,7 @@ class TreasuresAllowedOwnerChangeValidator extends ConstraintValidator {
 		}
 
 		// meant to be used above a Collection field
-		return;
+		dd($value);
 
 		$unitOfWork = $this->entityManager->getUnitOfWork();
 		foreach ($value as $dragonTreasure) {
